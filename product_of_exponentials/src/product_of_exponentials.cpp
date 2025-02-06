@@ -31,14 +31,14 @@ POE::~POE()
   std::cout << "POE class is destructed." << std::endl;
 }
 
-Eigen::Isometry3d POE::getZeroPosition()
+
+Eigen::Isometry3d POE::setZeroPosition(const Eigen::Vector3d & translation, const Eigen::Matrix3d & rotation)
 {
   // Reference: Eq. (4.14) in Modern Robotics
   Eigen::Isometry3d M = Eigen::Isometry3d::Identity();
-  Eigen::Vector3d translation(
-    link_lengths_.at(0), 0.0, link_lengths_.at(1) + link_lengths_.at(2) + link_lengths_.at(3));  // tentative code
 
   M.translate(translation);
+  M.rotate(rotation);
 
   return M;
 }
@@ -50,7 +50,9 @@ POE::getScrewAxesInBodyFrame()
   // [B] is given by M^-1 * [S] * M (i.e. B = [Ad_{M^-1}] * S)
   std::vector<Eigen::Vector6d, Eigen::aligned_allocator<Eigen::Vector6d>> S =
     getLimberoLimbScrewAxes();
-  Eigen::Isometry3d M = getZeroPosition();
+  Eigen::Vector3d v(1, 1, 1);  // TENTATIVE
+  Eigen::Matrix3d R = Eigen::Matrix3d::Identity();  // TENTATIVE
+  Eigen::Isometry3d M = setZeroPosition(v, R);
 #if DEBUG
   std::cout << "M = " << std::endl << M.matrix() << std::endl;
   std::cout << "M.inverse() = " << std::endl << M.inverse().matrix() << std::endl;

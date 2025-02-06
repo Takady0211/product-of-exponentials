@@ -19,10 +19,12 @@
 namespace product_of_exponentials
 {
 
-// TEST(ProductOfExponentials, testCase)
-// {
-//   ;
-// }
+TEST(ProductOfExponentials, testKinematics)
+{
+  // FK
+  // IK
+  // FK = input * IK
+}
 
 int main(int argc, char ** argv)
 {

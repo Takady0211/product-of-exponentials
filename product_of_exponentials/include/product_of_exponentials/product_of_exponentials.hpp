@@ -48,13 +48,6 @@ public:
   virtual ~POE();
 
   /**
-   * @brief Get the zero position matrix
-   *
-   * @return The end-effector configuration in zero (home) position: M in SE(3)
-   */
-  Eigen::Isometry3d getZeroPosition();
-
-  /**
    * @brief Get the Screw Axes vector that are predefined.
    *
    * @return Screw axes: S
@@ -104,6 +97,13 @@ private:
    */
   std::vector<Eigen::Vector6d, Eigen::aligned_allocator<Eigen::Vector6d>>
   getScrewAxesInBodyFrame();
+
+  /**
+   * @brief Set the zero position matrix
+   *
+   * @return The end-effector configuration in zero (home) position: M in SE(3)
+   */
+  Eigen::Isometry3d setZeroPosition(const Eigen::Vector3d & translation, const Eigen::Matrix3d & rotation);
 
   /**
    * @brief Calculate twist
