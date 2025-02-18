@@ -24,11 +24,15 @@ namespace product_of_exponentials
 POE::POE(const rclcpp::NodeOptions & options) : rclcpp::Node("product_of_exponentials", options)
 {
   std::cout << "POE class is established." << std::endl;
+
+  vis_ = new Visualize();
 }
 
 POE::~POE()
 {
   std::cout << "POE class is destructed." << std::endl;
+
+  delete vis_;
 }
 
 

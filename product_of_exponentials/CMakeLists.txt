@@ -14,7 +14,8 @@ rclcpp_components_register_nodes(product_of_exponentials "product_of_exponential
 
 ament_auto_add_executable(product_of_exponentials_node
   src/product_of_exponentials_node.cpp
-  src/product_of_exponentials.cpp)
+  src/product_of_exponentials.cpp
+  src/rviz_visualize.cpp)
 
 # gtest
 if(BUILD_TESTING)

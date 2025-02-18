@@ -29,6 +29,7 @@
 #include <sensor_msgs/msg/joint_state.hpp>
 // clang-format on
 
+#include "product_of_exponentials/rviz_visualize.hpp"
 #include "product_of_exponentials/visibility_control.h"
 
 namespace Eigen
@@ -90,6 +91,8 @@ public:
   double calculateManipulability(const sensor_msgs::msg::JointState & joint_position);
 
 private:
+  Visualize * vis_;
+
   /**
    * @brief Get the Screw Axes in body frame
    *
@@ -196,6 +199,7 @@ private:
 
   void setLinkParameters(const std::vector<double> & link_lengths);
 
+  bool are_screw_axes_defined_;
   int joint_num_;
   int link_num_;
   std::vector<double> link_lengths_;
