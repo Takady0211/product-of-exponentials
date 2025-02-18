@@ -17,14 +17,31 @@
 namespace product_of_exponentials
 {
 
-Visualize::Visualize()
+Visualize::Visualize() : Node("visualize")
 {
   std::cout << "Visualize class is established." << std::endl;
+
+  joy_sub_ = rclcpp::Node::create_subscription<sensor_msgs::msg::Joy>(
+    "/joy", 10, std::bind(&Visualize::joyCallback, this, std::placeholders::_1));
+  twist_pub_ = rclcpp::Node::create_publisher<geometry_msgs::msg::Twist>("/twist", 1);
 }
 
 Visualize::~Visualize()
 {
   std::cout << "Visualize class is destructed." << std::endl;
+}
+
+void Visualize::joyCallback(const sensor_msgs::msg::Joy & msg) const
+{
+  std::cout << msg.header.stamp.sec << std::endl;
+
+  geometry_msgs::msg::Twist v;
+
+  v.linear.x = msg.axes.at(1);
+  v.linear.y = msg.axes.at(0);
+  v.linear.z = msg.buttons.at(4) - msg.buttons.at(6);
+
+  twist_pub_->publish(v);
 }
 
 }  // namespace product_of_exponentials

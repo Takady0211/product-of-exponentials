@@ -40,6 +40,8 @@ using Vector6d = Eigen::Matrix<double, 6, 1>;
 namespace product_of_exponentials
 {
 
+class Visualize;
+
 class POE : public rclcpp::Node
 {
 public:
@@ -202,6 +204,7 @@ private:
   bool are_screw_axes_defined_;
   int joint_num_;
   int link_num_;
+  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr twist_pub_;
   std::vector<double> link_lengths_;
 };
 

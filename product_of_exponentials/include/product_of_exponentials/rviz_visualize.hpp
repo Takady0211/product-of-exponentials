@@ -15,21 +15,27 @@
 #ifndef PRODUCT_OF_EXPONENTIALS__RVIZ_VISUALIZE_HPP_
 #define PRODUCT_OF_EXPONENTIALS__RVIZ_VISUALIZE_HPP_
 
+#include <functional>
 #include <iostream>
+
+#include <geometry_msgs/msg/twist.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/joy.hpp>
 
 namespace product_of_exponentials
 {
 
-class Visualize
+class Visualize : public rclcpp::Node
 {
   public:
     Visualize();
-    ~Visualize();
-
-    int test_;
+    virtual ~Visualize();
 
   private:
+    void joyCallback(const sensor_msgs::msg::Joy & msg) const;
 
+    rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr joy_sub_;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr twist_pub_;
 };
 
 }  // namespace product_of_exponentials
