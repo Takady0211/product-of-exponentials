@@ -23,7 +23,7 @@ Visualize::Visualize(const rclcpp::NodeOptions & options) : rclcpp::Node("visual
 
   joy_sub_ = rclcpp::Node::create_subscription<sensor_msgs::msg::Joy>(
     "/joy", 10, std::bind(&Visualize::joyCallback, this, std::placeholders::_1));
-  twist_pub_ = rclcpp::Node::create_publisher<geometry_msgs::msg::Twist>("/twist", 1);
+  target_twist_pub_ = rclcpp::Node::create_publisher<geometry_msgs::msg::TwistStamped>("/twist", 1);
 }
 
 Visualize::~Visualize()
@@ -33,17 +33,19 @@ Visualize::~Visualize()
 
 void Visualize::joyCallback(const sensor_msgs::msg::Joy & msg) const
 {
-  geometry_msgs::msg::Twist v;
+  geometry_msgs::msg::TwistStamped v;
 
-  v.linear.x = msg.axes.at(1);
-  v.linear.y = msg.axes.at(0);
-  v.linear.z = msg.buttons.at(4) - msg.buttons.at(6);
+  v.twist.linear.x = msg.axes.at(1);
+  v.twist.linear.y = msg.axes.at(0);
+  v.twist.linear.z = msg.buttons.at(4) - msg.buttons.at(6);
 
-  v.angular.x = msg.axes.at(3);
-  v.angular.y = msg.axes.at(4);
-  v.angular.z = msg.buttons.at(11) - msg.buttons.at(12);
+  v.twist.angular.x = msg.axes.at(3);
+  v.twist.angular.y = msg.axes.at(4);
+  v.twist.angular.z = msg.buttons.at(11) - msg.buttons.at(12);
 
-  twist_pub_->publish(v);
+  v.header.stamp = rclcpp::Clock().now();
+  v.header.frame_id = "map";
+  target_twist_pub_->publish(v);
 }
 
 }  // namespace product_of_exponentials

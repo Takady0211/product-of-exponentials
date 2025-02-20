@@ -4,11 +4,22 @@ This repository will be renamed as "PoETLie: Product of Exponentials Toolbox usi
 
 This repository is ROS 2 package for using product of exponentials.
 
+## Why PoE?
+
+The biggest advantage of using product of exponentials method for robotics is its mathematical *simplicity*.
+PoE is based on Lie theory, and it enables simple expression and versatile usage for robotics application.
+This repository aims not only to utilize PoE for controlling robots but also to introduce PoE itself.
+
 ## Mathematical Background
 
+A homogeneous transformation matrix $T$ can be represented by its exponential coordinates $\mathcal{S}\theta \in \mathbb{R}^6$.
+Here, $\mathcal{S}$ is the screw axis and $\theta$ is the rotation angle of screw.
+
 ```math
-B \rightarrow \mathbb{R}^6  \\
-P \mapsto (\bm{v}, \bm{\omega})
+\begin{split}
+  [\mathcal{S}]\theta \in \mathfrak{se}(3) &\xrightarrow{\mathrm{exp}} T \in \mathfrak{SE}(3) \\
+  T \in \mathfrak{SE}(3) &\xrightarrow{\mathrm{log}} [\mathcal{S}]\theta \in \mathfrak{se}(3)
+\end{split}
 ```
 
 ## Tips for Debug
