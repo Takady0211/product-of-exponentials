@@ -23,6 +23,10 @@ int main(int argc, char * argv[])
     std::make_shared<product_of_exponentials::POE>(rclcpp::NodeOptions());
   exec.add_node(product_of_exponentials);
 
+  const auto visualize =
+    std::make_shared<product_of_exponentials::Visualize>(rclcpp::NodeOptions());
+  exec.add_node(visualize);
+
   exec.spin();
 
   rclcpp::shutdown();

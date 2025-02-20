@@ -25,7 +25,9 @@ POE::POE(const rclcpp::NodeOptions & options) : rclcpp::Node("product_of_exponen
 {
   std::cout << "POE class is established." << std::endl;
 
-  vis_ = new Visualize();
+  vis_ = new Visualize(options);
+
+  twist_pub_ = rclcpp::Node::create_publisher<geometry_msgs::msg::Twist>("/body_twist", 1);
 }
 
 POE::~POE()

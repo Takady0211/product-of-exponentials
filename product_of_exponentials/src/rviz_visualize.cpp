@@ -17,7 +17,7 @@
 namespace product_of_exponentials
 {
 
-Visualize::Visualize() : Node("visualize")
+Visualize::Visualize(const rclcpp::NodeOptions & options) : rclcpp::Node("visualize", options)
 {
   std::cout << "Visualize class is established." << std::endl;
 
@@ -33,13 +33,15 @@ Visualize::~Visualize()
 
 void Visualize::joyCallback(const sensor_msgs::msg::Joy & msg) const
 {
-  std::cout << msg.header.stamp.sec << std::endl;
-
   geometry_msgs::msg::Twist v;
 
   v.linear.x = msg.axes.at(1);
   v.linear.y = msg.axes.at(0);
   v.linear.z = msg.buttons.at(4) - msg.buttons.at(6);
+
+  v.angular.x = msg.axes.at(3);
+  v.angular.y = msg.axes.at(4);
+  v.angular.z = msg.buttons.at(11) - msg.buttons.at(12);
 
   twist_pub_->publish(v);
 }

@@ -28,7 +28,7 @@ namespace product_of_exponentials
 class Visualize : public rclcpp::Node
 {
   public:
-    Visualize();
+    Visualize(const rclcpp::NodeOptions & options);
     virtual ~Visualize();
 
   private:
